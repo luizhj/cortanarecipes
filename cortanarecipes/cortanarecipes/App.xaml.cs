@@ -11,7 +11,7 @@ namespace cortanarecipes
         {
             InitializeComponent();
 
-            MainPage = new Views.MainPage();
+            MainPage = new NavigationPage( new Views.RecipesListPage());
         }
 
         protected override void OnStart()

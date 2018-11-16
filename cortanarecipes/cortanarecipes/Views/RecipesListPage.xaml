@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<d:BasePage  xmlns:d="clr-namespace:cortanarecipes.Views" 
+             xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="cortanarecipes.Views.RecipesListPage"
+             xmlns:helpers="clr-namespace:cortanarecipes.Helpers"
+             Title="{Binding Title}"
+             Padding="5">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Add Recipe" Command="{Binding AddRecipeCommand}"/>
+        <ToolbarItem Text="Refresh List" Command="{Binding RefreshRecipeListCommand}"/>
+    </ContentPage.ToolbarItems>
+
+    <ContentPage.Content>
+
+        <StackLayout>
+            <ScrollView>
+
+                <ListView ItemsSource="{Binding Recipes}" 
+                          helpers:ItemTappedAttached.Command="{Binding NavigateToRecipeCommand}"
+                          HorizontalOptions="FillAndExpand">
+
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <StackLayout>
+                                    <Label Text="{Binding Id}" />
+                                    <Label Text="{Binding Description}" />
+                                </StackLayout>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+
+            </ScrollView>
+            <ActivityIndicator IsRunning="{Binding IsBusy}" HorizontalOptions="FillAndExpand" />
+        </StackLayout>
+    </ContentPage.Content>
+</d:BasePage>

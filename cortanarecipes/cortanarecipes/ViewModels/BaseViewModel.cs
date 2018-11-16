@@ -1,4 +1,5 @@
-﻿using System;
+﻿using cortanarecipes.Views;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
@@ -61,7 +62,7 @@ namespace cortanarecipes.ViewModels
                 return;
             }
 
-            var page = Activator.CreateInstance(viewType) as Page;
+            var page = Activator.CreateInstance(viewType,args) as Page;
 
             var viewModel = Activator.CreateInstance(viewModelType, args);
             if (page != null)

@@ -3,46 +3,25 @@
              xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="cortanarecipes.Views.RecipePage"
-             Title="{Binding Title}">
+             Title="{Binding Title}"
+             Padding="5">
+    
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Order="Primary" x:Name="TollbarItemSave" Text="Save" Command="{Binding SaveCommand}" />
+        <ToolbarItem Order="Secondary" x:Name="TollbarItemRemove" Text="Remove" Priority="0" Command="{Binding RemoveCommand}" />
+        <ToolbarItem Order="Secondary" x:Name="TollbarItemIngredientsList" Text="Ingredients" Priority="0" Command="{Binding NavigateToIngredientsListCommand}" />
+        <ToolbarItem Order="Secondary" x:Name="TollbarItemInstructionsList" Text="Instructions" Priority="0" Command="{Binding NavigateToInstructionsListCommand}" />
+    </ContentPage.ToolbarItems>
+    
     <ContentPage.Content>
         <StackLayout>
 
             <Label Text="Description" FontSize="Small"/>
             <Entry Keyboard="Default" Text="{Binding Description}" Placeholder="Description"  HorizontalOptions="FillAndExpand"/>
+            
             <Label Text="Note" FontSize="Small"/>
             <Entry Keyboard="Default" Text="{Binding Note}" Placeholder="Note"  HorizontalOptions="FillAndExpand"/>
-            <ListView ItemsSource="{Binding Ingredients}"  HorizontalOptions="FillAndExpand">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <ViewCell>
-                            <StackLayout>
-                                <Label Text="{Binding Id}" />
-                                <Label Text="{Binding Sequence}" />
-                                <Label Text="{Binding Quantity}" />
-                                <Label Text="{Binding Measures}" />
-                                <Label Text="{Binding Name}" />
-                            </StackLayout>
-                        </ViewCell>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
-            <ListView ItemsSource="{Binding Instructions}"  HorizontalOptions="FillAndExpand">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <ViewCell>
-                            <StackLayout>
-                                <Label Text="{Binding Id}" />
-                                <Label Text="{Binding Sequence}" />
-                                <Label Text="{Binding Description}" />
-                            </StackLayout>
-                        </ViewCell>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
-            <Button Text="NewIngredient" Command="{Binding NewIngredient}"  HorizontalOptions="FillAndExpand"/>
-            <Button Text="NewInstruction" Command="{Binding NewInstruction}"  HorizontalOptions="FillAndExpand"/>
-            <Button Text="GravarCommand" Command="{Binding GravarCommand}"  HorizontalOptions="FillAndExpand"/>
-            <Button Text="LerCommand" Command="{Binding LerCommand}"  HorizontalOptions="FillAndExpand"/>
+            
             <ActivityIndicator IsRunning="{Binding IsBusy}"  HorizontalOptions="FillAndExpand"/>
 
         </StackLayout>

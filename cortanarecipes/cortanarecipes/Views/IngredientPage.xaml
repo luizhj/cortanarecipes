@@ -3,19 +3,29 @@
              xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="cortanarecipes.Views.IngredientPage"
-             Title="{Binding Title}">
+             Title="{Binding Title}"
+             Padding="5">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Order="Primary" x:Name="TollbarItemSave" Text="Save" Priority="0" Command="{Binding SaveCommand}" />
+        <ToolbarItem Order="Secondary" x:Name="TollbarItemRemove" Text="Remove" Priority="0" Command="{Binding RemoveCommand}" />
+    </ContentPage.ToolbarItems>
+    
     <ContentPage.Content>
         <StackLayout>
 
             <Label Text="Sequence" FontSize="Small"/>
             <Entry Keyboard="Numeric" Text="{Binding Sequence, Mode=TwoWay}" Placeholder="Sequence"  HorizontalOptions="FillAndExpand"/>
-            <Label Text="Quantity" FontSize="Small"/>
-            <Entry Keyboard="Numeric" Text="{Binding Quantity, Mode=TwoWay}" Placeholder="Quantity"  HorizontalOptions="FillAndExpand"/>
+            
             <Label Text="Measure" FontSize="Small"/>
             <Entry Keyboard="Default" Text="{Binding Measure}" Placeholder="Measure"  HorizontalOptions="FillAndExpand"/>
+            
+            <Label Text="Quantity" FontSize="Small"/>
+            <Entry Keyboard="Numeric" Text="{Binding Quantity, Mode=TwoWay}" Placeholder="Quantity"  HorizontalOptions="FillAndExpand"/>
+
             <Label Text="Name" FontSize="Small"/>
             <Entry Keyboard="Default" Text="{Binding Name}" Placeholder="Name"  HorizontalOptions="FillAndExpand"/>
-            <Button Text="GravarCommand" Command="{Binding GravarCommand}"  HorizontalOptions="FillAndExpand"/>
+            
             <ActivityIndicator IsRunning="{Binding IsBusy}"  HorizontalOptions="FillAndExpand"/>
 
         </StackLayout>

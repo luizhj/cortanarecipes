@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<d:BasePage  xmlns:d="clr-namespace:cortanarecipes.Views" 
+             xmlns:helpers="clr-namespace:cortanarecipes.Helpers"
+             xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="cortanarecipes.Views.IngredientsListPage"
+             Title="{Binding Title}"
+             Padding="5">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Add Ingredient" Command="{Binding AddIngredientCommand}"/>
+    </ContentPage.ToolbarItems>
+
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout>
+
+                <Label Text="{Binding Description}" FontSize="Small"/>
+                <Label Text="{Binding Note}" FontSize="Small"/>
+
+                <ListView HorizontalOptions="FillAndExpand" 
+                          HasUnevenRows="True"
+                          ItemsSource="{Binding Ingredients}" 
+                          helpers:ItemTappedAttached.Command="{Binding NavigateToIngredientCommand}">
+                    <ListView.Header>
+                        <StackLayout>
+                            <Label Text="Ingredients List" FontSize="Large"/>
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text="Sequence" />
+                                <Label Text="Measure" />
+                                <Label Text="Quantity" />
+                                <Label Text="Name" />
+                            </StackLayout>
+                        </StackLayout>
+                    </ListView.Header>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <StackLayout Orientation="Horizontal">
+                                    <Label Text="{Binding Sequence}" />
+                                    <Label Text="{Binding Measure}" />
+                                    <Label Text="{Binding Quantity}" />
+                                    <Label Text="{Binding Name}" />
+                                </StackLayout>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+
+                <ActivityIndicator IsRunning="{Binding IsBusy}"  HorizontalOptions="FillAndExpand"/>
+
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</d:BasePage>

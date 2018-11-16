@@ -2,7 +2,6 @@
 using System.ComponentModel;
 using Xamarin.Forms;
 
-
 namespace cortanarecipes.Views
 {
     public abstract class BasePage : ContentPage

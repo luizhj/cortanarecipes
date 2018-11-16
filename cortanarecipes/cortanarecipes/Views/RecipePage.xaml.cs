@@ -1,4 +1,4 @@
-﻿using cortanarecipes.ViewModels;
+﻿using cortanarecipes.Models;
 using Xamarin.Forms.Xaml;
 
 namespace cortanarecipes.Views
@@ -6,13 +6,17 @@ namespace cortanarecipes.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class RecipePage : BasePage
     {
-        RecipeViewModel ViewModel = new RecipeViewModel();
-
         public RecipePage()
         {
             InitializeComponent();
 
-            BindingContext = ViewModel;
+            ToolbarItems.Remove(TollbarItemIngredientsList);
+            ToolbarItems.Remove(TollbarItemInstructionsList);
         }
+        public RecipePage(Recipe _recipe)
+        {
+            InitializeComponent();
+        }
+
     }
 }
