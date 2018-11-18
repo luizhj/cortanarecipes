@@ -63,12 +63,13 @@ namespace cortanarecipes.ViewModels
             }
 
             var page = Activator.CreateInstance(viewType,args) as Page;
-
+            /*
             var viewModel = Activator.CreateInstance(viewModelType, args);
             if (page != null)
             {
                 page.BindingContext = viewModel;
             }
+            */
             // se master detail
             if (Application.Current.MainPage is MasterDetailPage masterDetailPage)
             {

@@ -21,6 +21,9 @@
     <EmbeddedResource Update="Views\IngredientsListPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Update="Views\InstructionPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="Views\InstructionsListPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>

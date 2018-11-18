@@ -8,7 +8,7 @@
              Padding="5">
 
     <ContentPage.ToolbarItems>
-        <ToolbarItem x:Name="TollbarItemNew" Text="New" Command="{Binding NewInstrutcionCommand}" Priority="1"/>
+        <ToolbarItem x:Name="TollbarItemNew" Text="New" Command="{Binding NewCommand}" Priority="1"/>
     </ContentPage.ToolbarItems>
     
     <ContentPage.Content>
@@ -21,10 +21,10 @@
                 <ListView HorizontalOptions="FillAndExpand" 
                           HasUnevenRows="True"
                           ItemsSource="{Binding Instructions}" 
-                          helpers:ItemTappedAttached.Command="{Binding EditInstructionCommand}">
+                          helpers:ItemTappedAttached.Command="{Binding EditCommand}">
                     <ListView.Header>
                         <StackLayout>
-                            <Label Text="Ingredients List" FontSize="Large"/>
+                            <Label Text="Instructions List" FontSize="Large"/>
                             <StackLayout Orientation="Horizontal">
                                 <Label Text="Sequence" />
                                 <Label Text="Description" />

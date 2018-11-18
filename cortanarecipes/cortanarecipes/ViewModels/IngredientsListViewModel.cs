@@ -65,24 +65,23 @@ namespace cortanarecipes.ViewModels
             _recipe = recipe;
             FillProperties(recipe);
             InitializeCommands();
-
-
-            if (IngredientDAO.Ingredients(_recipe.Id) is List<Ingredient> _ingredients)
-            {
-                Ingredients = new ObservableCollection<Ingredient>(_ingredients);
-            }
-
         }
         #endregion
 
         #region Model Functions
+        public void RefreshList()
+        {
+            if (IngredientDAO.Ingredients(_recipe.Id) is List<Ingredient> _ingredients)
+            {
+                Ingredients = new ObservableCollection<Ingredient>(_ingredients);
+            }
+        }
         private void InitializeCommands()
         {
             IngredientDAO = new IngredientDAO();
             AddIngredientCommand = new Command(async () => await AddIngredient());
             NavigateToIngredientCommand = new Command<Ingredient>(async (e) => await NavigateToIngredient(e));
         }
-
         private async Task AddIngredient()
         {
             if (IsBusy)
@@ -96,7 +95,6 @@ namespace cortanarecipes.ViewModels
 
             IsBusy = false;
         }
-
         private async Task NavigateToIngredient(Ingredient e)
         {
             if (IsBusy)

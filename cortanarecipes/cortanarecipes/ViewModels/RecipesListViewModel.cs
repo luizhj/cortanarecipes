@@ -37,7 +37,7 @@ namespace cortanarecipes.ViewModels
         #endregion
 
         #region Model Functions
-        private void RefreshRecipesList()
+        public void RefreshRecipesList()
         {
             if (RecipeDAO.Recipes() is List<Recipe> _recipes)
             {

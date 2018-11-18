@@ -5,30 +5,23 @@ using Xamarin.Forms.Xaml;
 namespace cortanarecipes.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class RecipePage : BasePage
+    public partial class InstructionPage : BasePage
     {
+        InstructionViewModel viewModel;
 
-        RecipeViewModel viewModel;
-
-        public RecipePage()
+        public InstructionPage(Instruction instruction)
         {
             InitializeComponent();
-
-            viewModel = new RecipeViewModel();
+            viewModel = new InstructionViewModel(instruction);
             BindingContext = viewModel;
-
-            ToolbarItems.Remove(TollbarItemIngredientsList);
-            ToolbarItems.Remove(TollbarItemInstructionsList);
         }
-
-        public RecipePage(Recipe _recipe)
+        public InstructionPage(int recipeId)
         {
             InitializeComponent();
-
-            viewModel = new RecipeViewModel(_recipe);
+            viewModel = new InstructionViewModel(recipeId);
             BindingContext = viewModel;
 
+            ToolbarItems.Remove(ToolbarItemRemove);
         }
-
     }
 }

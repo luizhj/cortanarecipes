@@ -1,6 +1,5 @@
 ﻿using cortanarecipes.DataAccess;
 using cortanarecipes.Models;
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
@@ -32,7 +31,7 @@ namespace cortanarecipes.ViewModels
             set { SetProperty(ref _recipenote, value); }
         }
 
-        
+
         private ObservableCollection<Instruction> _instructions;
         public ObservableCollection<Instruction> Instructions
         {
@@ -40,15 +39,15 @@ namespace cortanarecipes.ViewModels
             set { SetProperty(ref _instructions, value); }
         }
         #endregion
-        
+
         #region Aux variables
         private Recipe _recipe { get; set; }
         private InstructionDAO InstructionDAO { get; set; }
         #endregion
 
         #region Button Commands
-        public Command NewInstructionCommand { get; set; }
-        public Command EditInstructionCommand { get; set; }
+        public Command NewCommand { get; set; }
+        public Command EditCommand { get; set; }
         #endregion
 
         #region Constructors
@@ -58,14 +57,14 @@ namespace cortanarecipes.ViewModels
 
             InitializeCommands();
             FillProperties(_recipe);
-            Refreshlist(_recipe.Id);
+            Refreshlist();
         }
         #endregion
 
         #region Model functions
-        private void Refreshlist(int recipeId)
+        public void Refreshlist()
         {
-            if (InstructionDAO.Instructions(recipeId) is List<Instruction> _instructions)
+            if (InstructionDAO.Instructions(RecipeId) is List<Instruction> _instructions)
             {
                 Instructions = new ObservableCollection<Instruction>(_instructions);
             }
@@ -79,12 +78,15 @@ namespace cortanarecipes.ViewModels
         private void InitializeCommands()
         {
             InstructionDAO = new InstructionDAO();
-            NewInstructionCommand = new Command(async () => await NewInstruction());
-            EditInstructionCommand = new Command<Instruction>(async (e) => await EditInstruction(e));
+            NewCommand = new Command(async () => await NewInstruction());
+            EditCommand = new Command<Instruction>(async (e) => await EditInstruction(e));
         }
         private async Task EditInstruction(Instruction e)
         {
-            if (IsBusy) return;
+            if (IsBusy)
+            {
+                return;
+            }
 
             IsBusy = true;
 
@@ -95,7 +97,9 @@ namespace cortanarecipes.ViewModels
         private async Task NewInstruction()
         {
             if (IsBusy)
+            {
                 return;
+            }
 
             IsBusy = true;
 
