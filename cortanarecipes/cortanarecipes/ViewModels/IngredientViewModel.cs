@@ -110,6 +110,9 @@ namespace cortanarecipes.ViewModels
                 RecipeId = recipeId
             };
 
+
+            Title = "New Ingredient";
+
             FillProperties();
             InitializeCommands();
         }
@@ -118,7 +121,7 @@ namespace cortanarecipes.ViewModels
         public IngredientViewModel(Ingredient ingredient)
         {
             _ingredient = ingredient;
-
+            Title = "Ingredient Detail";
             FillProperties(_ingredient);
             InitializeCommands();
         }

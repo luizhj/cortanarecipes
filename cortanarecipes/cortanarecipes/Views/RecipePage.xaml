@@ -1,27 +1,95 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <d:BasePage  xmlns:d="clr-namespace:cortanarecipes.Views" 
+             xmlns:helpers="clr-namespace:cortanarecipes.Helpers" 
              xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="cortanarecipes.Views.RecipePage"
              Title="{Binding Title}"
              Padding="5">
-    
+
     <ContentPage.ToolbarItems>
-        <ToolbarItem Order="Primary" x:Name="TollbarItemSave" Text="Save" Command="{Binding SaveCommand}" />
-        <ToolbarItem Order="Secondary" x:Name="TollbarItemRemove" Text="Remove" Priority="0" Command="{Binding RemoveCommand}" />
-        <ToolbarItem Order="Secondary" x:Name="TollbarItemIngredientsList" Text="Ingredients" Priority="0" Command="{Binding NavigateToIngredientsListCommand}" />
-        <ToolbarItem Order="Secondary" x:Name="TollbarItemInstructionsList" Text="Instructions" Priority="0" Command="{Binding NavigateToInstructionsListCommand}" />
+        <ToolbarItem Order="Primary" x:Name="ToolbarItemSave" Text="Save" Command="{Binding SaveCommand}" />
+        <ToolbarItem Order="Secondary" x:Name="ToolbarItemRemove" Text="Remove" Priority="0" Command="{Binding RemoveCommand}" />
+
+        <ToolbarItem Order="Secondary" x:Name="ToolbarItemNewIngredient" Text="New Ingredient" Priority="1" Command="{Binding NewIngredientCommand}"/>
+        <ToolbarItem Order="Secondary" x:Name="ToolbarItemNewInstruction" Text="New Instruction" Priority="1" Command="{Binding NewInstructionCommand}"/>
+
     </ContentPage.ToolbarItems>
-    
+
     <ContentPage.Content>
         <StackLayout>
 
             <Label Text="Description" FontSize="Small"/>
-            <Entry Keyboard="Default" Text="{Binding Description}" Placeholder="Description"  HorizontalOptions="FillAndExpand"/>
-            
+            <Entry Keyboard="Default" Text="{Binding Description}" Placeholder="Description"  HorizontalOptions="FillAndExpand" x:Name="EntDescription" Unfocused="EntDescription_Unfocused"/>
+
             <Label Text="Note" FontSize="Small"/>
-            <Entry Keyboard="Default" Text="{Binding Note}" Placeholder="Note"  HorizontalOptions="FillAndExpand"/>
-            
+            <Entry Keyboard="Default" Text="{Binding Note}" Placeholder="Note"  HorizontalOptions="FillAndExpand" x:Name="EntNote" Unfocused="EntNote_Unfocused"/>
+
+            <ScrollView >
+                <StackLayout>
+
+                    <ListView x:Name="LstIngredients" 
+                              HorizontalOptions="FillAndExpand" 
+                              HasUnevenRows="True"
+                              ItemsSource="{Binding Ingredients}" 
+                              helpers:ItemTappedAttached.Command="{Binding IngredientDetailCommand}">
+                        <ListView.Header>
+                            <StackLayout>
+                                <Label Text="-- Ingredients List -- " FontSize="Medium"/>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="1*"/>
+                                        <ColumnDefinition Width="1*"/>
+                                        <ColumnDefinition Width="3*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Label Text="Quantity" Grid.Column="0" HorizontalOptions="FillAndExpand"/>
+                                    <Label Text="Measure" Grid.Column="1" HorizontalOptions="FillAndExpand"/>
+                                    <Label Text="Name"  Grid.Column="2" HorizontalOptions="FillAndExpand"/>
+                                </Grid>
+                            </StackLayout>
+                        </ListView.Header>
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="1*"/>
+                                            <ColumnDefinition Width="1*"/>
+                                            <ColumnDefinition Width="3*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Label Text="{Binding Quantity}" Grid.Column="0" HorizontalOptions="FillAndExpand"/>
+                                        <Label Text="{Binding Measure}" Grid.Column="1" HorizontalOptions="FillAndExpand"/>
+                                        <Label Text="{Binding Name}"  Grid.Column="2" HorizontalOptions="FillAndExpand"/>
+                                    </Grid>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+
+                    <ListView x:Name="LstInstructions" 
+                              HorizontalOptions="FillAndExpand" 
+                              HasUnevenRows="True"
+                              ItemsSource="{Binding Instructions}"
+                              helpers:ItemTappedAttached.Command="{Binding InstructionDetailCommand}">
+                        <ListView.Header>
+                            <StackLayout>
+                                <Label Text="-- Instructions List -- " FontSize="Medium"/>
+                            </StackLayout>
+                        </ListView.Header>
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <StackLayout Orientation="Horizontal">
+                                        <Label Text=" - "/>
+                                        <Label Text="{Binding Description}" />
+                                    </StackLayout>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </StackLayout>
+            </ScrollView>
+
             <ActivityIndicator IsRunning="{Binding IsBusy}"  HorizontalOptions="FillAndExpand"/>
 
         </StackLayout>

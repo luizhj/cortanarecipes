@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+using System.Threading.Tasks;
 
 namespace cortanarecipes.DataAccess
 {
@@ -22,7 +22,7 @@ namespace cortanarecipes.DataAccess
 
         public IList<Instruction> Instructions(int recipeid)
         {
-            return _context.Instructions.Where(p => p.RecipeId == recipeid).ToList();
+            return _context.Instructions.Where(p => p.RecipeId == recipeid).OrderBy(p => p.Sequence).ToList();
         }
 
         public Instruction Instruction(int instructionId)
@@ -32,6 +32,7 @@ namespace cortanarecipes.DataAccess
 
         public void Add(Instruction instruction)
         {
+            instruction.Sequence = NextSequence(instruction.Id);
             _context.Instructions.Add(instruction);
             _context.SaveChanges();
         }
@@ -47,5 +48,27 @@ namespace cortanarecipes.DataAccess
             _context.Instructions.Remove(instruction);
             _context.SaveChanges();
         }
+
+        public int NextSequence(int recipeId)
+        {
+            if (_context.Instructions.Where(p => p.RecipeId == recipeId).OrderBy(p => p.Sequence).LastOrDefault() is Instruction instruction)
+            {
+                return instruction.Sequence + 1;
+            }
+            return 0;
+        }
+
+        public async Task RemoveAll(int recipeId)
+        {
+            var lista = Instructions(recipeId);
+
+            foreach (var item in lista)
+            {
+                _context.Remove(item);
+            }
+
+            await _context.SaveChangesAsync();
+        }
+
     }
 }

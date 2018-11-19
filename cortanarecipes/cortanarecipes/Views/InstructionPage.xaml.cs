@@ -12,16 +12,17 @@ namespace cortanarecipes.Views
         public InstructionPage(Instruction instruction)
         {
             InitializeComponent();
+
             viewModel = new InstructionViewModel(instruction);
             BindingContext = viewModel;
         }
         public InstructionPage(int recipeId)
         {
             InitializeComponent();
+            ToolbarItems.Remove(ToolbarItemRemove);
+
             viewModel = new InstructionViewModel(recipeId);
             BindingContext = viewModel;
-
-            ToolbarItems.Remove(ToolbarItemRemove);
         }
     }
 }

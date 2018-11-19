@@ -20,6 +20,7 @@ namespace cortanarecipes.Views
         protected override void OnAppearing()
         {
             base.OnAppearing();
+
             viewModel.RefreshRecipesList();
 
         }

@@ -1,6 +1,7 @@
 ﻿using cortanarecipes.DataAccess;
 using cortanarecipes.Models;
-using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
@@ -28,6 +29,20 @@ namespace cortanarecipes.ViewModels
         {
             get { return _note; }
             set { SetProperty(ref _note, value); }
+        }
+
+        private ObservableCollection<Ingredient> _ingredients;
+        public ObservableCollection<Ingredient> Ingredients
+        {
+            get { return _ingredients; }
+            set { SetProperty(ref _ingredients, value); }
+        }
+
+        private ObservableCollection<Instruction> _instructions;
+        public ObservableCollection<Instruction> Instructions
+        {
+            get { return _instructions; }
+            set { SetProperty(ref _instructions, value); }
         }
         #endregion
 
@@ -62,15 +77,18 @@ namespace cortanarecipes.ViewModels
 
         #region Aux Variables
         private RecipeDAO RecipeDAO { get; set; }
+        private IngredientDAO IngredientDAO { get; set; }
+        private InstructionDAO InstructionDAO { get; set; }
         private Recipe _recipe { get; set; }
         #endregion
 
         #region Button Commands
         public Command SaveCommand { get; set; }
         public Command RemoveCommand { get; set; }
-        
-        public Command NavigateToIngredientsListCommand { get; set; }
-        public Command NavigateToInstructionsListCommand { get; set; }
+        public Command NewIngredientCommand { get; set; }
+        public Command NewInstructionCommand { get; set; }
+        public Command IngredientDetailCommand { get; set; }
+        public Command InstructionDetailCommand { get; set; }
         #endregion
 
         #region Constructors
@@ -78,7 +96,7 @@ namespace cortanarecipes.ViewModels
         public RecipeViewModel()
         {
             _recipe = new Recipe();
-
+            Title = "New Recipe";
             InitializeCommands();
             FillProperties();
         }
@@ -87,7 +105,7 @@ namespace cortanarecipes.ViewModels
         public RecipeViewModel(Recipe recipe)
         {
             _recipe = recipe;
-
+            Title = "Recipe Detail";
             InitializeCommands();
             FillProperties(_recipe);
         }
@@ -97,11 +115,36 @@ namespace cortanarecipes.ViewModels
         private void InitializeCommands()
         {
             RecipeDAO = new RecipeDAO();
+            IngredientDAO = new IngredientDAO();
+            InstructionDAO = new InstructionDAO();
             SaveCommand = new Command(async () => await SaveRecipe());
             RemoveCommand = new Command(async () => await RemoveRecipe());
-            NavigateToIngredientsListCommand = new Command(async () => await NavigateToIngredientsList());
-            NavigateToInstructionsListCommand = new Command(async () => await NavigateToInstructionsList());
-            
+            NewIngredientCommand = new Command(async () => await NewIngredient());
+            NewInstructionCommand = new Command(async () => await NewInstruction());
+            IngredientDetailCommand = new Command<Ingredient>(async (e) => await IngredientDetail(e));
+            InstructionDetailCommand = new Command<Instruction>(async (e) => await InstructionDetail(e));
+        }
+        private async Task NewInstruction()
+        {
+            if (IsBusy)
+            {
+                return;
+            }
+
+            IsBusy = true;
+            await PushAsync<InstructionViewModel>(_recipe.Id);
+            IsBusy = false;
+        }
+        private async Task NewIngredient()
+        {
+            if (IsBusy)
+            {
+                return;
+            }
+
+            IsBusy = true;
+            await PushAsync<IngredientViewModel>(_recipe.Id);
+            IsBusy = false;
         }
         private async Task SaveRecipe()
         {
@@ -113,6 +156,12 @@ namespace cortanarecipes.ViewModels
             IsBusy = true;
 
             _recipe = GetProperties(_recipe);
+
+            if (!(await ValidRecipe(_recipe)))
+            {
+                IsBusy = false;
+                return;
+            }
 
             if (_recipe.Id == 0)
             {
@@ -138,13 +187,13 @@ namespace cortanarecipes.ViewModels
 
             _recipe = GetProperties(_recipe);
 
-            RecipeDAO.Remove(_recipe);
+            await RecipeDAO.Remove(_recipe);
 
             await Application.Current.MainPage.Navigation.PopAsync();
 
             IsBusy = false;
         }
-        private async Task NavigateToIngredientsList()
+        private async Task IngredientDetail(Ingredient e)
         {
             if (IsBusy)
             {
@@ -153,12 +202,11 @@ namespace cortanarecipes.ViewModels
 
             IsBusy = true;
 
-            await PushAsync<IngredientsListViewModel>(_recipe);
+            await PushAsync<IngredientViewModel>(e);
 
             IsBusy = false;
-
         }
-        private async Task NavigateToInstructionsList()
+        private async Task InstructionDetail(Instruction e)
         {
             if (IsBusy)
             {
@@ -167,11 +215,36 @@ namespace cortanarecipes.ViewModels
 
             IsBusy = true;
 
-            await PushAsync<InstructionsListViewModel>(_recipe);
+            await PushAsync<InstructionViewModel>(e);
 
             IsBusy = false;
         }
+        private async Task<bool> ValidRecipe(Recipe recipe)
+        {
+            var retorno = true;
 
+            if (recipe.Id == 0 && string.IsNullOrEmpty(recipe.Description))
+            {
+                retorno = false;
+                await DisplayAlert("Error", "Please fill the field Description", "Ok");
+            }
+
+            return retorno;
+        }
+        public void RefreshIngredientList()
+        {
+            if (IngredientDAO.Ingredients(_recipe.Id) is List<Ingredient> ingredients)
+            {
+                Ingredients = new ObservableCollection<Ingredient>(ingredients);
+            }
+        }
+        public void RefreshInstructionsList()
+        {
+            if (InstructionDAO.Instructions(_recipe.Id) is List<Instruction> instructions)
+            {
+                Instructions = new ObservableCollection<Instruction>(instructions);
+            }
+        }
         #endregion
     }
 }

@@ -14,17 +14,14 @@
     <ContentPage.Content>
         <StackLayout>
 
-            <Label Text="Sequence" FontSize="Small"/>
-            <Entry Keyboard="Numeric" Text="{Binding Sequence, Mode=TwoWay}" Placeholder="Sequence"  HorizontalOptions="FillAndExpand"/>
-            
             <Label Text="Measure" FontSize="Small"/>
-            <Entry Keyboard="Default" Text="{Binding Measure}" Placeholder="Measure"  HorizontalOptions="FillAndExpand"/>
+            <Entry Keyboard="Default" Text="{Binding Measure}" Placeholder="Measure"  HorizontalOptions="FillAndExpand" x:Name="EntMeasure" Unfocused="EntMeasure_Unfocused"/>
             
             <Label Text="Quantity" FontSize="Small"/>
-            <Entry Keyboard="Numeric" Text="{Binding Quantity, Mode=TwoWay}" Placeholder="Quantity"  HorizontalOptions="FillAndExpand"/>
+            <Entry Keyboard="Numeric" Text="{Binding Quantity, Mode=TwoWay}" Placeholder="Quantity"  HorizontalOptions="FillAndExpand" x:Name="EntQuantity" Unfocused="EntQuantity_Unfocused"/>
 
             <Label Text="Name" FontSize="Small"/>
-            <Entry Keyboard="Default" Text="{Binding Name}" Placeholder="Name"  HorizontalOptions="FillAndExpand"/>
+            <Entry Keyboard="Default" Text="{Binding Name}" Placeholder="Name"  HorizontalOptions="FillAndExpand" x:Name="EntName" Unfocused="EntName_Unfocused"/>
             
             <ActivityIndicator IsRunning="{Binding IsBusy}"  HorizontalOptions="FillAndExpand"/>
 

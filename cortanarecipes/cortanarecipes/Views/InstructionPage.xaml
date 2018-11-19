@@ -14,8 +14,8 @@
     <ContentPage.Content>
         <StackLayout>
 
-            <Label Text="Sequence" FontSize="Small"/>
-            <Entry Keyboard="Numeric" Text="{Binding Sequence, Mode=TwoWay}" Placeholder="Sequence"  HorizontalOptions="FillAndExpand"/>
+            <!--<Label Text="Sequence" FontSize="Small"/>-->
+            <!--<Entry Keyboard="Numeric" Text="{Binding Sequence, Mode=TwoWay}" Placeholder="Sequence"  HorizontalOptions="FillAndExpand"/>-->
 
             <Label Text="Description" FontSize="Small"/>
             <Entry Keyboard="Default" Text="{Binding Description}" Placeholder="Description"  HorizontalOptions="FillAndExpand"/>

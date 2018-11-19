@@ -9,6 +9,7 @@ namespace cortanarecipes.Views
     {
 
         RecipeViewModel viewModel;
+        private Recipe _recipe;
 
         public RecipePage()
         {
@@ -17,18 +18,51 @@ namespace cortanarecipes.Views
             viewModel = new RecipeViewModel();
             BindingContext = viewModel;
 
-            ToolbarItems.Remove(TollbarItemIngredientsList);
-            ToolbarItems.Remove(TollbarItemInstructionsList);
+            LstIngredients.IsVisible = false;
+            LstInstructions.IsVisible = false;
+
+            ToolbarItems.Remove(ToolbarItemNewIngredient);
+            ToolbarItems.Remove(ToolbarItemNewInstruction);
+            ToolbarItems.Remove(ToolbarItemRemove);
         }
 
-        public RecipePage(Recipe _recipe)
+        public RecipePage(Recipe recipe)
         {
             InitializeComponent();
 
+            _recipe = recipe;
+
             viewModel = new RecipeViewModel(_recipe);
             BindingContext = viewModel;
+        }
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+
+            viewModel.RefreshIngredientList();
+            viewModel.RefreshInstructionsList();
+
+            if (viewModel.Ingredients != null)
+            {
+                LstIngredients.IsVisible = viewModel.Ingredients.Count > 0;
+            }
+
+            if (viewModel.Instructions != null)
+            {
+                LstInstructions.IsVisible = viewModel.Instructions.Count > 0;
+            }
 
         }
 
+        private void EntDescription_Unfocused(object sender, Xamarin.Forms.FocusEventArgs e)
+        {
+            EntNote.Focus();
+        }
+
+        private void EntNote_Unfocused(object sender, Xamarin.Forms.FocusEventArgs e)
+        {
+
+        }
     }
 }

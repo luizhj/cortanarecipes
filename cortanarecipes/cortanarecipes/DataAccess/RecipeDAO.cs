@@ -2,11 +2,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+using System.Threading.Tasks;
 
 namespace cortanarecipes.DataAccess
 {
-    public class RecipeDAO :IDisposable
+    public class RecipeDAO : IDisposable
     {
         private ApplicationContext _context;
 
@@ -22,7 +22,7 @@ namespace cortanarecipes.DataAccess
 
         public IList<Recipe> Recipes()
         {
-            return _context.Recipes.ToList();
+            return _context.Recipes.OrderBy(p => p.Id).ToList();
         }
 
         public Recipe Recipe(int RecipeId)
@@ -42,8 +42,11 @@ namespace cortanarecipes.DataAccess
             _context.SaveChanges();
         }
 
-        public void Remove(Recipe Recipe)
+        public async Task Remove(Recipe Recipe)
         {
+            await new InstructionDAO().RemoveAll(Recipe.Id);
+            await new IngredientDAO().RemoveAll(Recipe.Id);
+
             _context.Recipes.Remove(Recipe);
             _context.SaveChanges();
         }

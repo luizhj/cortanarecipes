@@ -74,12 +74,14 @@ namespace cortanarecipes.ViewModels
         {
             _instruction = instruction;
             FillProperties(_instruction);
+            Title = "Instruction Detail";
             InitializeCommands();
         }
 
         public InstructionViewModel(int recipeId)
         {
             RecipeId = recipeId;
+            Title = "New Instruction";
             InitializeCommands();
         }
         #endregion

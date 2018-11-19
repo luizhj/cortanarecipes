@@ -9,7 +9,6 @@
 
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Add Recipe" Command="{Binding AddRecipeCommand}"/>
-        <ToolbarItem Text="Refresh List" Command="{Binding RefreshRecipeListCommand}"/>
     </ContentPage.ToolbarItems>
 
     <ContentPage.Content>
@@ -25,8 +24,7 @@
                         <DataTemplate>
                             <ViewCell>
                                 <StackLayout>
-                                    <Label Text="{Binding Id}" />
-                                    <Label Text="{Binding Description}" />
+                                    <Label Text="{Binding Description}"/>
                                 </StackLayout>
                             </ViewCell>
                         </DataTemplate>
