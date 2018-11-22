@@ -14,8 +14,6 @@
     <ContentPage.Content>
 
         <StackLayout>
-            <Button x:Name="start" Text="Start" Clicked="Start_Clicked" IsVisible="False"/>
-            <Label x:Name="recon" Text="Recognized text"  HorizontalOptions="Center" VerticalOptions="Center" IsVisible="False"/>
             <ScrollView>
 
                 <ListView ItemsSource="{Binding Recipes}" 

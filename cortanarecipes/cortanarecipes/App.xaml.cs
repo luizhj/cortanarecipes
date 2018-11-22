@@ -3,6 +3,9 @@ using cortanarecipes.Resources;
 using System.Reflection;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using Microsoft.AppCenter;
+using Microsoft.AppCenter.Analytics;
+using Microsoft.AppCenter.Crashes;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace cortanarecipes
@@ -13,6 +16,10 @@ namespace cortanarecipes
         {
             InitializeComponent();
 
+            AppCenter.Start(APIKeys.AppCenterKeys
+                , typeof(Analytics), typeof(Crashes));
+
+            /*
             System.Diagnostics.Debug.WriteLine("====== resource debug info =========");
             var assembly = typeof(App).GetTypeInfo().Assembly;
             foreach (var res in assembly.GetManifestResourceNames())
@@ -21,9 +28,9 @@ namespace cortanarecipes
             }
 
             System.Diagnostics.Debug.WriteLine("====================================");
-            
+            */
             // This lookup NOT required for Windows platforms - the Culture will be automatically set
-            if (Device.RuntimePlatform == Device.iOS || Device.RuntimePlatform == Device.Android)
+            if (Xamarin.Forms.Device.RuntimePlatform == Xamarin.Forms.Device.iOS || Xamarin.Forms.Device.RuntimePlatform == Xamarin.Forms.Device.Android)
             {
                 // determine the correct, supported .NET culture
                 var ci = DependencyService.Get<ILocalize>().GetCurrentCultureInfo();

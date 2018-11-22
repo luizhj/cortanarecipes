@@ -154,10 +154,7 @@ namespace cortanarecipes.ViewModels
             SpeakText = _item.ToString();
             Quantity = _item.Quantity;
             Measure = _item.Measure;
-            Description = _item.Description;
-
-            DependencyService.Get<ITextToSpeech>().Speak(SpeakText);
-            
+            Description = _item.Description;            
         }
 
         private void play()
