@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using Xamarin.Forms;
-
+using cortanarecipes.Resources;
 namespace cortanarecipes.ViewModels
 {
     public class RecipesListViewModel : RecipeViewModel
@@ -33,6 +33,7 @@ namespace cortanarecipes.ViewModels
         {
             InitializeCommands();
             RefreshRecipesList();
+            Title = AppResources.RsRecipes;
         }
         #endregion
 

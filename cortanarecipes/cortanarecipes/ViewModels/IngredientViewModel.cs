@@ -2,6 +2,7 @@
 using cortanarecipes.Models;
 using System.Threading.Tasks;
 using Xamarin.Forms;
+using cortanarecipes.Resources;
 
 namespace cortanarecipes.ViewModels
 {
@@ -111,7 +112,7 @@ namespace cortanarecipes.ViewModels
             };
 
 
-            Title = "New Ingredient";
+            Title = AppResources.RsAddIngredient;
 
             FillProperties();
             InitializeCommands();
@@ -121,7 +122,9 @@ namespace cortanarecipes.ViewModels
         public IngredientViewModel(Ingredient ingredient)
         {
             _ingredient = ingredient;
-            Title = "Ingredient Detail";
+
+            Title = AppResources.RsIngredientDetail;
+
             FillProperties(_ingredient);
             InitializeCommands();
         }

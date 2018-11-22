@@ -21,9 +21,11 @@ namespace cortanarecipes.Views
             LstIngredients.IsVisible = false;
             LstInstructions.IsVisible = false;
 
+
             ToolbarItems.Remove(ToolbarItemNewIngredient);
             ToolbarItems.Remove(ToolbarItemNewInstruction);
             ToolbarItems.Remove(ToolbarItemRemove);
+            ToolbarItems.Remove(ToolbarItemRead);
         }
 
         public RecipePage(Recipe recipe)
@@ -46,11 +48,30 @@ namespace cortanarecipes.Views
             if (viewModel.Ingredients != null)
             {
                 LstIngredients.IsVisible = viewModel.Ingredients.Count > 0;
+                if (LstIngredients.IsVisible)
+                {
+                    var tamanho = (viewModel.Ingredients.Count * 100) / 2;
+                    if (tamanho < 150)
+                    {
+                        tamanho = 150;
+                    }
+                    LstIngredients.HeightRequest = tamanho;
+                }
             }
 
             if (viewModel.Instructions != null)
             {
                 LstInstructions.IsVisible = viewModel.Instructions.Count > 0;
+                if (LstInstructions.IsVisible)
+                {
+                    var tamanho = (viewModel.Instructions.Count * 100) / 2;
+                    if (tamanho < 150)
+                    {
+                        tamanho = 150;
+                    }
+
+                    LstInstructions.HeightRequest = tamanho;
+                }
             }
 
         }

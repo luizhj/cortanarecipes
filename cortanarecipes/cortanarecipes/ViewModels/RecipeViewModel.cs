@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using Xamarin.Forms;
+using cortanarecipes.Resources;
 
 namespace cortanarecipes.ViewModels
 {
@@ -89,6 +90,7 @@ namespace cortanarecipes.ViewModels
         public Command NewInstructionCommand { get; set; }
         public Command IngredientDetailCommand { get; set; }
         public Command InstructionDetailCommand { get; set; }
+        public Command StartReadCommand { get; set; }
         #endregion
 
         #region Constructors
@@ -96,7 +98,7 @@ namespace cortanarecipes.ViewModels
         public RecipeViewModel()
         {
             _recipe = new Recipe();
-            Title = "New Recipe";
+            Title = AppResources.RsNewRecipe;
             InitializeCommands();
             FillProperties();
         }
@@ -105,7 +107,7 @@ namespace cortanarecipes.ViewModels
         public RecipeViewModel(Recipe recipe)
         {
             _recipe = recipe;
-            Title = "Recipe Detail";
+            Title = AppResources.RsRecipeDetail;
             InitializeCommands();
             FillProperties(_recipe);
         }
@@ -123,6 +125,7 @@ namespace cortanarecipes.ViewModels
             NewInstructionCommand = new Command(async () => await NewInstruction());
             IngredientDetailCommand = new Command<Ingredient>(async (e) => await IngredientDetail(e));
             InstructionDetailCommand = new Command<Instruction>(async (e) => await InstructionDetail(e));
+            StartReadCommand = new Command(async () => await StartRead());
         }
         private async Task NewInstruction()
         {
@@ -231,6 +234,23 @@ namespace cortanarecipes.ViewModels
 
             return retorno;
         }
+        private async Task StartRead()
+        {
+            if (IsBusy)
+            {
+                return;
+            }
+
+            IsBusy = true;
+
+            _recipe.Ingredients = Ingredients;
+            _recipe.Instructions = Instructions;
+
+            await PushAsync<ReadViewModel>(_recipe);
+
+            IsBusy = false;
+        }
+
         public void RefreshIngredientList()
         {
             if (IngredientDAO.Ingredients(_recipe.Id) is List<Ingredient> ingredients)
@@ -245,6 +265,9 @@ namespace cortanarecipes.ViewModels
                 Instructions = new ObservableCollection<Instruction>(instructions);
             }
         }
+
+
+
         #endregion
     }
 }

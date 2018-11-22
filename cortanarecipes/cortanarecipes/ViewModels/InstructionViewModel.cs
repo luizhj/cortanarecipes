@@ -2,6 +2,7 @@
 using cortanarecipes.Models;
 using System.Threading.Tasks;
 using Xamarin.Forms;
+using cortanarecipes.Resources;
 
 namespace cortanarecipes.ViewModels
 {
@@ -74,14 +75,14 @@ namespace cortanarecipes.ViewModels
         {
             _instruction = instruction;
             FillProperties(_instruction);
-            Title = "Instruction Detail";
+            Title = AppResources.RsInstructionDetail;
             InitializeCommands();
         }
 
         public InstructionViewModel(int recipeId)
         {
             RecipeId = recipeId;
-            Title = "New Instruction";
+            Title = AppResources.RsNewInstruction;
             InitializeCommands();
         }
         #endregion

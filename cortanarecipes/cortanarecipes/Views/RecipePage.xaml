@@ -7,26 +7,37 @@
              Title="{Binding Title}"
              Padding="5">
 
-    <ContentPage.ToolbarItems>
-        <ToolbarItem Order="Primary" x:Name="ToolbarItemSave" Text="Save" Command="{Binding SaveCommand}" />
-        <ToolbarItem Order="Secondary" x:Name="ToolbarItemRemove" Text="Remove" Priority="0" Command="{Binding RemoveCommand}" />
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="HeadIngredients" TargetType="Label">
+                <Setter Property="Text" Value="{helpers:Translate RsIngredients}"/>
+            </Style>
+            <Style x:Key="HeadInstructions" TargetType="Label">
+                <Setter Property="Text" Value="{helpers:Translate RsInstructions}"/>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
 
-        <ToolbarItem Order="Secondary" x:Name="ToolbarItemNewIngredient" Text="New Ingredient" Priority="1" Command="{Binding NewIngredientCommand}"/>
-        <ToolbarItem Order="Secondary" x:Name="ToolbarItemNewInstruction" Text="New Instruction" Priority="1" Command="{Binding NewInstructionCommand}"/>
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Order="Primary" x:Name="ToolbarItemSave" Text="{helpers:Translate RsSave}" Command="{Binding SaveCommand}" />
+        <ToolbarItem Order="Secondary" x:Name="ToolbarItemRemove" Text="{helpers:Translate RsRemove}" Priority="0" Command="{Binding RemoveCommand}" />
+        <ToolbarItem Order="Secondary" x:Name="ToolbarItemRead" Text="{helpers:Translate RsStartCooking}" Priority="1" Command="{Binding StartReadCommand}" />
+        <ToolbarItem Order="Secondary" x:Name="ToolbarItemNewIngredient" Text="{helpers:Translate RsNewIngredient}" Priority="1" Command="{Binding NewIngredientCommand}"/>
+        <ToolbarItem Order="Secondary" x:Name="ToolbarItemNewInstruction" Text="{helpers:Translate RsNewInstruction}" Priority="1" Command="{Binding NewInstructionCommand}"/>
 
     </ContentPage.ToolbarItems>
 
     <ContentPage.Content>
         <StackLayout>
 
-            <Label Text="Description" FontSize="Small"/>
-            <Entry Keyboard="Default" Text="{Binding Description}" Placeholder="Description"  HorizontalOptions="FillAndExpand" x:Name="EntDescription" Unfocused="EntDescription_Unfocused"/>
+            <Label Text="{helpers:Translate RsDescription}" FontSize="Small"/>
+            <Entry Keyboard="Default" Text="{Binding Description}" Placeholder="{helpers:Translate RsDescription}"  HorizontalOptions="FillAndExpand" x:Name="EntDescription" Unfocused="EntDescription_Unfocused"/>
 
-            <Label Text="Note" FontSize="Small"/>
-            <Entry Keyboard="Default" Text="{Binding Note}" Placeholder="Note"  HorizontalOptions="FillAndExpand" x:Name="EntNote" Unfocused="EntNote_Unfocused"/>
+            <Label Text="{helpers:Translate RsNote}" FontSize="Small"/>
+            <Entry Keyboard="Default" Text="{Binding Note}" Placeholder="{helpers:Translate RsNote}"  HorizontalOptions="FillAndExpand" x:Name="EntNote" Unfocused="EntNote_Unfocused"/>
 
-            <ScrollView >
-                <StackLayout>
+            <ScrollView>
+                <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
 
                     <ListView x:Name="LstIngredients" 
                               HorizontalOptions="FillAndExpand" 
@@ -35,16 +46,16 @@
                               helpers:ItemTappedAttached.Command="{Binding IngredientDetailCommand}">
                         <ListView.Header>
                             <StackLayout>
-                                <Label Text="-- Ingredients List -- " FontSize="Medium"/>
+                                <Label Text="{helpers:Translate RsIngredients}"/>
                                 <Grid>
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="1*"/>
                                         <ColumnDefinition Width="1*"/>
                                         <ColumnDefinition Width="3*"/>
                                     </Grid.ColumnDefinitions>
-                                    <Label Text="Quantity" Grid.Column="0" HorizontalOptions="FillAndExpand"/>
-                                    <Label Text="Measure" Grid.Column="1" HorizontalOptions="FillAndExpand"/>
-                                    <Label Text="Name"  Grid.Column="2" HorizontalOptions="FillAndExpand"/>
+                                    <Label Text="{helpers:Translate RsQty}" Grid.Column="0" HorizontalOptions="FillAndExpand"/>
+                                    <Label Text="{helpers:Translate RsMeasure}" Grid.Column="1" HorizontalOptions="FillAndExpand"/>
+                                    <Label Text="{helpers:Translate RsName}"  Grid.Column="2" HorizontalOptions="FillAndExpand"/>
                                 </Grid>
                             </StackLayout>
                         </ListView.Header>
@@ -73,7 +84,7 @@
                               helpers:ItemTappedAttached.Command="{Binding InstructionDetailCommand}">
                         <ListView.Header>
                             <StackLayout>
-                                <Label Text="-- Instructions List -- " FontSize="Medium"/>
+                                <Label Text="{helpers:Translate RsInstructions}"/>
                             </StackLayout>
                         </ListView.Header>
                         <ListView.ItemTemplate>

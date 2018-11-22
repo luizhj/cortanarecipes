@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<d:BasePage  xmlns:d="clr-namespace:cortanarecipes.Views" 
+             xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:helpers="clr-namespace:cortanarecipes.Helpers"
+             x:Class="cortanarecipes.Views.ReadPage"
+             Title="{Binding Title}"
+             Padding="5">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="PlayerButton" TargetType="Button">
+                <Setter Property="BackgroundColor" Value="Transparent"/>
+                <Setter Property="HeightRequest" Value="50"/>
+                <Setter Property="WidthRequest" Value="50"/>
+                <Setter Property="Margin" Value="0"/>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ContentPage.Content>
+        <StackLayout>
+            <Label Text="{helpers:Translate RsSpeakText}" FontSize="Small"/>
+            <Entry Keyboard="Default" Text="{Binding SpeakText}" Placeholder="{helpers:Translate RsSpeakText}"  HorizontalOptions="FillAndExpand"/>
+
+            <Label Text="{helpers:Translate RsQuantity}" FontSize="Small"/>
+            <Entry Keyboard="Numeric" Text="{Binding Quantity, Mode=TwoWay}" Placeholder="{helpers:Translate RsQuantity}"  HorizontalOptions="FillAndExpand"/>
+
+            <Label Text="{helpers:Translate RsMeasure}" FontSize="Small"/>
+            <Entry Keyboard="Default" Text="{Binding Measure}" Placeholder="{helpers:Translate RsMeasure}"  HorizontalOptions="FillAndExpand"/>
+
+            <Label Text="{helpers:Translate RsDescription}" FontSize="Small"/>
+            <Entry Keyboard="Default" Text="{Binding Description}" Placeholder="{helpers:Translate RsDescription}"  HorizontalOptions="FillAndExpand"/>
+
+            <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
+                <Button class="PlayerButton" x:Name="BtnPrev" Command="{Binding PreviousCommand}" Image="previous.png"/>
+                <Button class="PlayerButton" x:Name="BtnStart" Command="{Binding StartCommand}" Image="play" IsVisible="{Binding IsPaused}"/>
+                <Button class="PlayerButton" x:Name="BtnPause" Command="{Binding PauseCommand}" Image="pause" IsVisible="{Binding IsPlaying}"/>
+                <Button class="PlayerButton" x:Name="BtnNext" Command="{Binding NextCommand}" Image="next" />
+                <Button class="PlayerButton" x:Name="BtnRepeat" Command="{Binding RepeatCommand}" Image="repeat" />
+            </StackLayout>
+            <ActivityIndicator IsRunning="{Binding IsBusy}"  HorizontalOptions="FillAndExpand"/>
+
+        </StackLayout>
+    </ContentPage.Content>
+</d:BasePage>

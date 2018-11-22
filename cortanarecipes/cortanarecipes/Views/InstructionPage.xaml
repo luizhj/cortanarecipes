@@ -2,23 +2,21 @@
 <d:BasePage  xmlns:d="clr-namespace:cortanarecipes.Views" 
              xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:helpers="clr-namespace:cortanarecipes.Helpers"
              x:Class="cortanarecipes.Views.InstructionPage"
              Title="{Binding Title}"
              Padding="5">
 
     <ContentPage.ToolbarItems>
-        <ToolbarItem x:Name="ToolbarItemSave" Command="{Binding SaveCommand}" Text="Save" Priority="0"/>
-        <ToolbarItem x:Name="ToolbarItemRemove" Command="{Binding RemoveCommand}" Text="Remove" Priority="1"/>
+        <ToolbarItem x:Name="ToolbarItemSave" Command="{Binding SaveCommand}" Text="{helpers:Translate RsSave}" Priority="0"/>
+        <ToolbarItem x:Name="ToolbarItemRemove" Command="{Binding RemoveCommand}" Text="{helpers:Translate RsRemove}" Priority="1"/>
     </ContentPage.ToolbarItems>
     
     <ContentPage.Content>
         <StackLayout>
 
-            <!--<Label Text="Sequence" FontSize="Small"/>-->
-            <!--<Entry Keyboard="Numeric" Text="{Binding Sequence, Mode=TwoWay}" Placeholder="Sequence"  HorizontalOptions="FillAndExpand"/>-->
-
-            <Label Text="Description" FontSize="Small"/>
-            <Entry Keyboard="Default" Text="{Binding Description}" Placeholder="Description"  HorizontalOptions="FillAndExpand"/>
+            <Label Text="{helpers:Translate RsDescription}" FontSize="Small"/>
+            <Entry Keyboard="Default" Text="{Binding Description}" Placeholder="{helpers:Translate RsDescription}"  HorizontalOptions="FillAndExpand"/>
             
             <ActivityIndicator IsRunning="{Binding IsBusy}"  HorizontalOptions="FillAndExpand"/>
 

@@ -2,29 +2,31 @@
 <d:BasePage  xmlns:d="clr-namespace:cortanarecipes.Views" 
              xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:helpers="clr-namespace:cortanarecipes.Helpers"
              x:Class="cortanarecipes.Views.IngredientPage"
              Title="{Binding Title}"
              Padding="5">
 
     <ContentPage.ToolbarItems>
-        <ToolbarItem Order="Primary" x:Name="TollbarItemSave" Text="Save" Priority="0" Command="{Binding SaveCommand}" />
-        <ToolbarItem Order="Secondary" x:Name="TollbarItemRemove" Text="Remove" Priority="0" Command="{Binding RemoveCommand}" />
+        <ToolbarItem Order="Primary" x:Name="TollbarItemSave" Text="{helpers:Translate RsSave}" Priority="0" Command="{Binding SaveCommand}" />
+        <ToolbarItem Order="Secondary" x:Name="TollbarItemRemove" Text="{helpers:Translate RsRemove}" Priority="0" Command="{Binding RemoveCommand}" />
     </ContentPage.ToolbarItems>
-    
+
     <ContentPage.Content>
         <StackLayout>
 
-            <Label Text="Measure" FontSize="Small"/>
-            <Entry Keyboard="Default" Text="{Binding Measure}" Placeholder="Measure"  HorizontalOptions="FillAndExpand" x:Name="EntMeasure" Unfocused="EntMeasure_Unfocused"/>
-            
-            <Label Text="Quantity" FontSize="Small"/>
-            <Entry Keyboard="Numeric" Text="{Binding Quantity, Mode=TwoWay}" Placeholder="Quantity"  HorizontalOptions="FillAndExpand" x:Name="EntQuantity" Unfocused="EntQuantity_Unfocused"/>
+            <Label Text="{helpers:Translate RsMeasure}" FontSize="Small"/>
+            <Entry Keyboard="Default" Text="{Binding Measure}" Placeholder="{helpers:Translate RsMeasure}"  HorizontalOptions="FillAndExpand" x:Name="EntMeasure" Unfocused="EntMeasure_Unfocused"/>
 
-            <Label Text="Name" FontSize="Small"/>
-            <Entry Keyboard="Default" Text="{Binding Name}" Placeholder="Name"  HorizontalOptions="FillAndExpand" x:Name="EntName" Unfocused="EntName_Unfocused"/>
-            
+            <Label Text="{helpers:Translate RsQuantity}" FontSize="Small"/>
+            <Entry Keyboard="Numeric" Text="{Binding Quantity, Mode=TwoWay}" Placeholder="{helpers:Translate RsQuantity}"  HorizontalOptions="FillAndExpand" x:Name="EntQuantity" Unfocused="EntQuantity_Unfocused"/>
+
+            <Label Text="{helpers:Translate RsName}" FontSize="Small"/>
+            <Entry Keyboard="Default" Text="{Binding Name}" Placeholder="{helpers:Translate RsName}"  HorizontalOptions="FillAndExpand" x:Name="EntName" Unfocused="EntName_Unfocused"/>
+
             <ActivityIndicator IsRunning="{Binding IsBusy}"  HorizontalOptions="FillAndExpand"/>
 
         </StackLayout>
     </ContentPage.Content>
 </d:BasePage>
+    
