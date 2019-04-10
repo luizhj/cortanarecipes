@@ -5,6 +5,7 @@
              x:Class="cortanarecipes.Views.RecipesListPage"
              xmlns:helpers="clr-namespace:cortanarecipes.Helpers"
              Title="{Binding Title}"
+             Visual="Material"
              Padding="5">
 
     <ContentPage.ToolbarItems>

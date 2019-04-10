@@ -5,6 +5,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="cortanarecipes.Views.RecipePage"
              Title="{Binding Title}"
+             Visual="Material"
              Padding="5">
 
     <ContentPage.Resources>
@@ -38,12 +39,12 @@
 
             <ScrollView>
                 <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+<!--helpers:ItemTappedAttached.Command="{Binding IngredientDetailCommand}"-->
 
                     <ListView x:Name="LstIngredients" 
                               HorizontalOptions="FillAndExpand" 
                               HasUnevenRows="True"
-                              ItemsSource="{Binding Ingredients}" 
-                              helpers:ItemTappedAttached.Command="{Binding IngredientDetailCommand}">
+                              ItemsSource="{Binding Ingredients}" >
                         <ListView.Header>
                             <StackLayout>
                                 <Label Text="{helpers:Translate RsIngredients}"/>
@@ -77,11 +78,11 @@
                         </ListView.ItemTemplate>
                     </ListView>
 
+                        <!--helpers:ItemTappedAttached.Command="{Binding InstructionDetailCommand}">-->
                     <ListView x:Name="LstInstructions" 
                               HorizontalOptions="FillAndExpand" 
                               HasUnevenRows="True"
-                              ItemsSource="{Binding Instructions}"
-                              helpers:ItemTappedAttached.Command="{Binding InstructionDetailCommand}">
+                              ItemsSource="{Binding Instructions}">
                         <ListView.Header>
                             <StackLayout>
                                 <Label Text="{helpers:Translate RsInstructions}"/>
